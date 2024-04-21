@@ -24,6 +24,8 @@
 , libvlc
 , libGL
 , mbedtls
+, nv-codec-headers-12
+, uthash
 , wrapGAppsHook
 , scriptingSupport ? true
 , luajit
@@ -36,6 +38,7 @@
 , libcef
 , pciutils
 , pipewireSupport ? stdenv.isLinux
+, nvencSupport ? true
 , withFdk ? true
 , pipewire
 , libdrm
@@ -62,13 +65,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "obs-studio";
-  version = "30.1.2";
+  version = "30.1.3-pre";
 
   src = fetchFromGitHub {
     owner = "obsproject";
     repo = finalAttrs.pname;
-    rev = finalAttrs.version;
-    sha256 = "sha256-M4IINBoYrgkM37ykb4boHyWP8AxwMX0b7IAeeNIw9Qo=";
+    rev = "8d2f4ed3e1da64b73444e9ce5353d4e65f34c9ad";
+    hash = "sha256-RkJaDdHSKgEN0OGeinq8j93fr7wU9X0hkp5ZvYMDbK0=";
     fetchSubmodules = true;
   };
 
@@ -127,7 +130,9 @@ stdenv.mkDerivation (finalAttrs: {
     libdatachannel
     libvpl
     qrcodegencpp
+    uthash
   ]
+  ++ optional nvencSupport nv-codec-headers-12
   ++ optionals scriptingSupport [ luajit python3 ]
   ++ optional alsaSupport alsa-lib
   ++ optional pulseaudioSupport libpulseaudio
@@ -155,6 +160,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DENABLE_JACK=ON"
     (lib.cmakeBool "ENABLE_QSV11" stdenv.hostPlatform.isx86_64)
     (lib.cmakeBool "ENABLE_LIBFDK" withFdk)
+    (lib.cmakeBool "ENABLE_NATIVE_NVENC" nvencSupport)
     (lib.cmakeBool "ENABLE_ALSA" alsaSupport)
     (lib.cmakeBool "ENABLE_PULSEAUDIO" pulseaudioSupport)
     (lib.cmakeBool "ENABLE_PIPEWIRE" pipewireSupport)
