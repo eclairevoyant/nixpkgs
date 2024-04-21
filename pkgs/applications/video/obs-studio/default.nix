@@ -74,7 +74,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     # Lets obs-browser build against CEF 90.1.0+
+    # See https://github.com/RytoEX/obs-browser/commit/a0a781c37bfa84930e3dd28bb67071555a4b4ad1 and
+    # https://github.com/obsproject/obs-browser/issues/296
     ./Enable-file-access-and-universal-access-for-file-URL.patch
+
     ./fix-nix-plugin-path.patch
 
     # Fix libobs.pc for plugins on non-x86 systems
