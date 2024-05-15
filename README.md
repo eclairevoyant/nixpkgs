@@ -87,7 +87,7 @@ for donations to our organization.
 You can donate to the NixOS foundation through [SEPA bank
 transfers](https://nixos.org/donate.html) or by using Open Collective:
 
-<a href="https://opencollective.com/nixos#support"><img src="https://opencollective.com/nixos/tiers/supporter.svg?width=890" /></a>
+<a href="https://opencollective.com/nixos#support"><img src="https://opencollective.com/nixos/tiers/supporter.svg?width=890"></img></a>
 
 # License
 
