@@ -300,6 +300,7 @@
   ./programs/vim.nix
   ./programs/virt-manager.nix
   ./programs/wavemon.nix
+  ./programs/way-shell.nix
   ./programs/wayland/cardboard.nix
   ./programs/wayland/hyprlock.nix
   ./programs/wayland/hyprland.nix
