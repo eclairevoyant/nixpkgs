@@ -15,7 +15,7 @@
   cacert,
   unzip,
   # runtime deps
-  ffmpeg-full, # immich requires at least webp encoder from ffmpeg-full
+  ffmpeg,
   imagemagick,
   libraw,
   libheif,
@@ -254,7 +254,7 @@ buildNpmPackage' {
   ];
 
   buildInputs = [
-    ffmpeg-full
+    ffmpeg
     imagemagick
     libraw
     libheif
@@ -283,7 +283,7 @@ buildNpmPackage' {
       --suffix PATH : "${
         lib.makeBinPath [
           perl
-          ffmpeg-full
+          ffmpeg
         ]
       }"
 
