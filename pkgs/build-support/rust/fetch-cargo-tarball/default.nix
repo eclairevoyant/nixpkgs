@@ -26,7 +26,9 @@ let
   };
 in
 {
-  name ? "cargo-deps",
+  pname ? null,
+  version ? null,
+  name ? if args ? pname && args ? version then "${pname}-${version}" else "cargo-deps",
   src ? null,
   srcs ? [ ],
   patches ? [ ],
@@ -35,7 +37,10 @@ in
   nativeBuildInputs ? [ ],
   ...
 }@args:
-
+# `name` should be mutually exclusive with `pname`
+assert args ? pname -> !(args ? name);
+# `pname` should only be provided with `version` (and vice versa)
+assert args ? pname == args ? version;
 let
   hash_ =
     if args ? hash then
@@ -136,6 +141,8 @@ stdenv.mkDerivation (
   }
   // (builtins.removeAttrs args [
     "name"
+    "pname"
+    "version"
     "sha256"
     "cargoUpdateHook"
     "nativeBuildInputs"
